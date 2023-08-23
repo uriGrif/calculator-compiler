@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include "scanner.h"
 
 char lexema[200];
