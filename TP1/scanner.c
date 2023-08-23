@@ -65,19 +65,32 @@ int debo_parar(enum estados estado){
     return aceptor(estado) || centinela(estado);
 }
 
-enum columnas categoria_lexica(char caracter){
+enum columnas categoria_lexica(int caracter){
     if(caracter == '0') return CARACTER_CERO;
     if(isdigit(caracter)) return DIGITS_1_AL_9;
     if(isxdigit(caracter)) return LETRAS_HEXA;
+    if(caracter == 'x' || caracter == 'X') return EQUIS;
+    if(isalpha(caracter)) return LETRAS_NO_HEXA;
+    if(caracter == EOF) return FDT;
+    if(isspace(caracter)) return ESPACIO;
+    return OTROS;
 }
 
 enum token scanner(void) {
     enum estados estado = INICIAL;
-    char caracter;
+    int caracter;
+    int indice_lexema = 0;
     while(!debo_parar(estado)){
        caracter =  getchar();
        estado = TABLA_TRANSICION[estado][categoria_lexica(caracter)];
+        if(!isspace(caracter)){
+            if(centinela(estado)) lexema[indice_lexema] = '\0';
+            else lexema[indice_lexema] = caracter;
+            indice_lexema++;
+        } /*ARMAR EL LEXEMA*/
     }
+    
+        
     return ERROR_GRAL;
 }
 
