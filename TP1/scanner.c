@@ -31,7 +31,7 @@ enum columnas {
     LETRAS_HEXA,
     EQUIS,
     LETRAS_NO_HEXA,
-    FDT,
+    FDTEXT,
     ESPACIO,
     OTROS
 };
@@ -71,7 +71,7 @@ enum columnas categoria_lexica(int caracter){
     if(isxdigit(caracter)) return LETRAS_HEXA;
     if(caracter == 'x' || caracter == 'X') return EQUIS;
     if(isalpha(caracter)) return LETRAS_NO_HEXA;
-    if(caracter == EOF) return FDT;
+    if(caracter == EOF) return FDTEXT;
     if(isspace(caracter)) return ESPACIO;
     return OTROS;
 }
@@ -80,6 +80,7 @@ enum token scanner(void) {
     enum estados estado = INICIAL;
     int caracter;
     int indice_lexema = 0;
+    enum token t;
     while(!debo_parar(estado)){
        caracter =  getchar();
        estado = TABLA_TRANSICION[estado][categoria_lexica(caracter)];
@@ -89,8 +90,30 @@ enum token scanner(void) {
             indice_lexema++;
         } /*ARMAR EL LEXEMA*/
     }
-    
-        
-    return ERROR_GRAL;
+    if(centinela(estado)) ungetc(caracter,stdin);
+    switch (estado)
+    {
+    case ID_OK:
+        t= IDENTIFICADOR;
+        break;
+    case CONST_OK:
+        t= ENTERO;
+        break;
+    case HEXA_OK:
+        t= HEXA;
+        break;
+    case FDT_OK:
+        t= FDT;
+        break;
+    case ERR_CONST_MAL:
+        t= ERROR_ENTERO;
+        break;
+    case ERR_GRAL:
+        t= ERROR_GRAL;
+        break;
+    default:
+        break;
+    }
+ return t;
 }
 
