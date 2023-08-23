@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include<ctype.h>
 #include "scanner.h"
 
 int main(void) {
-    printf("Hello Scanner");
     return 0;
 }
