@@ -15,3 +15,5 @@ Gerónimo Bosco
 Facundo Slaibe
 
 Gianfranco Lema De Filippo
+
+María Sofía Rabey Fischer
