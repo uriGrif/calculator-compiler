@@ -58,7 +58,7 @@ int aceptor(enum estados estado){
 }
 
 int centinela(enum estados estado){
-    return estado >=6 && estado <=8 || estado == 10 || estado == 12;
+    return (estado >=6 && estado <=8) || (estado == 10 || estado == 12);
 }
 
 int debo_parar(enum estados estado){
@@ -80,15 +80,16 @@ enum token scanner(void) {
     enum estados estado = INICIAL;
     int caracter;
     int indice_lexema = 0;
-    enum token t;
+    enum token t = ERROR_GRAL;
     while(!debo_parar(estado)){
        caracter =  getchar();
        estado = TABLA_TRANSICION[estado][categoria_lexica(caracter)];
-        if(!isspace(caracter)){
             if(centinela(estado)) lexema[indice_lexema] = '\0';
-            else lexema[indice_lexema] = caracter;
-            indice_lexema++;
-        } /*ARMAR EL LEXEMA*/
+            else if(!isspace(caracter)){
+                lexema[indice_lexema] = caracter;
+                indice_lexema++;
+            } 
+         /*ARMAR EL LEXEMA*/
     }
     if(centinela(estado)) ungetc(caracter,stdin);
     switch (estado)
@@ -110,10 +111,12 @@ enum token scanner(void) {
         break;
     case ERR_GRAL:
         t= ERROR_GRAL;
-        break;
+        break;  
     default:
         break;
     }
  return t;
 }
+
+
 
