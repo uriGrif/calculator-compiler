@@ -17,3 +17,5 @@ Facundo Slaibe
 Gianfranco Lema De Filippo
 
 María Sofía Rabey Fischer
+
+Juan Ignacio del Puerto
