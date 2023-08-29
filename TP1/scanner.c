@@ -51,11 +51,11 @@ const enum estados TABLA_TRANSICION[13][8] = {
 };
 
 int aceptor(enum estados estado){
-    return estado >= 6 && estado <= 9;
+    return estado >= ID_OK && estado <= FDT_OK;
 }
 
 int centinela(enum estados estado){
-    return (estado >= 6 && estado <= 8) || estado == 10 || estado == 12;
+    return (estado >= ID_OK && estado <= HEXA_OK) || estado == ERR_CONST_MAL || estado == ERR_GRAL;
 }
 
 int debo_parar(enum estados estado){
@@ -78,6 +78,10 @@ enum columnas tipo_caracter(int caracter){
     if(isspace(caracter)) return ESPACIO;
     
     return OTROS;
+}
+
+int debo_agregar(enum estados estado){
+    return estado != INICIAL && estado != FDT_OK;
 }
 
 char* nombre_token(enum token t) {
@@ -115,7 +119,7 @@ enum token scanner(void) {
         
         if(centinela(estado)) lexema[indice_lexema] = '\0';
         
-        else if(!isspace(caracter)) {
+        else if(debo_agregar(estado)) {
             lexema[indice_lexema] = caracter;
             indice_lexema++;
         }
