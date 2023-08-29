@@ -7,3 +7,17 @@
 Uriel Grifman
 
 Gonzalo Ivo Turri
+
+Valentina Valmadre Amoia
+
+Gerónimo Bosco
+
+Facundo Slaibe
+
+Gianfranco Lema De Filippo
+
+María Sofía Rabey Fischer
+
+Juan Ignacio del Puerto
+
+Santiago Ale Marino
