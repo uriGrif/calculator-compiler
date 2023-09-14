@@ -8,17 +8,17 @@ char lexema[200];
 // posibles estados del AFD
 enum estados {
     INICIAL,
-    RECON_ID,
-    RECON_CONST,
-    ARRANCA_CERO,
-    RECON_HEXA,
-    RECON_CONST_MAL,
-    RECON_ERR_GRAL,
-    ID_OK = 100,
-    CONST_OK,
-    HEXA_OK,
-    FDT_OK,
-    ERR_CONST_MAL = 200,
+    RECONOCIENDO_ID,
+    RECONOCIENDO_CONST,
+    ARRANCA_CON_CERO,
+    RECONOCIENDO_CONST_HEXA,
+    RECONOCIENDO_CONST_MAL_FORMADA,
+    RECONOCIENDO_ERR_GRAL,
+    IDENTIFICADOR_OK = 100,
+    CONSTANTE_OK,
+    HEXADECIMAL_OK,
+    FIN_DE_TEXTO_OK,
+    ERR_CONST_MAL_FORMADA = 200,
     ERR_GRAL
 };
 
@@ -48,11 +48,11 @@ const estados TABLA_TRANSICION[7][8] = {
 };
 
 int aceptor(estados estado){
-    return estado >= ID_OK && estado <= FDT_OK;
+    return estado >= IDENTIFICADOR_OK && estado <= FIN_DE_TEXTO_OK;
 }
 
 int centinela(estados estado) {
-    return estado != FDT_OK && (estado >= ID_OK && estado <= ERR_GRAL);
+    return estado != FIN_DE_TEXTO_OK && (estado >= IDENTIFICADOR_OK && estado <= ERR_GRAL);
 }
 
 int debo_parar(estados estado){
@@ -78,7 +78,7 @@ int debo_parar(estados estado){
 }
 
 int debo_agregar(estados estado){
-    return estado != INICIAL && estado != FDT_OK;
+    return estado != INICIAL && estado != FIN_DE_TEXTO_OK;
 }
 
 char* nombre_token(token t) {
@@ -129,19 +129,19 @@ token scanner(void) {
     
     switch (estado)
     {
-        case ID_OK:
+        case IDENTIFICADOR_OK:
             t = IDENTIFICADOR;
             break;
-        case CONST_OK:
+        case CONSTANTE_OK:
             t = ENTERO;
             break;
-        case HEXA_OK:
+        case HEXADECIMAL_OK:
             t = HEXA;
             break;
-        case FDT_OK:
+        case FIN_DE_TEXTO_OK:
             t = FDT;
             break;
-        case ERR_CONST_MAL:
+        case ERR_CONST_MAL_FORMADA:
             t = ERROR_ENTERO;
             break;
         case ERR_GRAL:
@@ -155,3 +155,4 @@ token scanner(void) {
     
     return t;
 }
+
