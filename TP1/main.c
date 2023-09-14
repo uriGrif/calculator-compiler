@@ -2,7 +2,7 @@
 #include "scanner.h"
 
 int main(void) {
-    enum token token;
+    token token;
     
     token = scanner();
     while(token != FDT){

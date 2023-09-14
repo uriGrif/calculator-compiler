@@ -14,4 +14,6 @@ extern char lexema[200];
 enum token scanner(void);
 char* nombre_token(enum token t);
 
+typedef enum token token;
+
 #endif
