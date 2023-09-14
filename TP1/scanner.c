@@ -11,13 +11,13 @@ enum estados {
     RECON_CONST,
     ARRANCA_CERO,
     RECON_HEXA,
+    RECON_CONST_MAL,
+    RECON_ERR_GRAL,
     ID_OK = 100,
     CONST_OK,
     HEXA_OK,
     FDT_OK,
-    RECON_CONST_MAL = 200,
-    ERR_CONST_MAL,
-    RECON_ERR_GRAL,
+    ERR_CONST_MAL = 200,
     ERR_GRAL
 };
 
@@ -36,14 +36,14 @@ enum columnas {
 typedef enum estados estados;
 typedef enum columnas columnas;
 
-const enum estados TABLA_TRANSICION[7][8] = {
-    {3, 2, 1, 1, 1, 103, 0, 202},
+const estados TABLA_TRANSICION[7][8] = {
+    {3, 2, 1, 1, 1, 103, 0, 6},
     {1, 1, 1, 1, 1, 100, 100, 100},
-    {2, 2, 200, 200, 200, 101, 101, 101},
-    {2, 2, 200, 4, 200, 101, 101, 101},
+    {2, 2, 5, 5, 5, 101, 101, 101},
+    {2, 2, 5, 4, 5, 101, 101, 101},
     {4, 4, 4, 102, 102, 102, 102, 102},
-    {200, 200, 200, 200, 200, 201, 201, 201},
-    {203, 203, 203, 203, 203, 203, 203, 202}
+    {5, 5, 5, 5, 5, 200, 200, 200},
+    {201, 201, 201, 201, 201, 201, 201, 6}
 };
 
 int aceptor(enum estados estado){
