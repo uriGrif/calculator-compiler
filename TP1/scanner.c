@@ -1,5 +1,6 @@
 #include <ctype.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "scanner.h"
 
 char lexema[200];
@@ -46,19 +47,19 @@ const estados TABLA_TRANSICION[7][8] = {
     {201, 201, 201, 201, 201, 201, 201, 6}
 };
 
-int aceptor(enum estados estado){
+int aceptor(estados estado){
     return estado >= ID_OK && estado <= FDT_OK;
 }
 
-int centinela(enum estados estado){
-    return (estado >= ID_OK && estado <= HEXA_OK) || estado == ERR_CONST_MAL || estado == ERR_GRAL;
+int centinela(estados estado) {
+    return estado != FDT_OK && (estado >= ID_OK && estado <= ERR_GRAL);
 }
 
-int debo_parar(enum estados estado){
-    return aceptor(estado) || centinela(estado);
+int debo_parar(estados estado){
+    return estado >= 100;
 }
 
-enum columnas tipo_caracter(int caracter){
+ columnas tipo_caracter(int caracter){
     if(caracter == '0') return CARACTER_CERO;
     
     if(isdigit(caracter)) return DIGITS_1_AL_9;
@@ -76,38 +77,39 @@ enum columnas tipo_caracter(int caracter){
     return OTROS;
 }
 
-int debo_agregar(enum estados estado){
+int debo_agregar(estados estado){
     return estado != INICIAL && estado != FDT_OK;
 }
 
-char* nombre_token(enum token t) {
-    char* nombre;
+char* nombre_token(token t) {
     switch (t)
     {
-    case IDENTIFICADOR:
-        nombre = "Identificador";
-        break;
-    case ENTERO:
-        nombre = "Entero";
-        break;
-    case HEXA:
-        nombre = "Hexadecimal";
-        break;
-    case ERROR_ENTERO:
-        nombre = "Entero Mal formado";
-        break;
-    case ERROR_GRAL:
-        nombre = "Error general";
-        break;
+        case IDENTIFICADOR:
+            return "Identificador";
+            break;
+        case ENTERO:
+            return "Entero";
+            break;
+        case HEXA:
+            return "Hexadecimal";
+            break;
+        case ERROR_ENTERO:
+            return "Entero Mal formado";
+            break;
+        case ERROR_GRAL:
+            return "Error general";
+            break;
+        default:
+            fprintf(stderr, "ERROR: token invalido");
+            exit(1);
     }
-    return nombre;
 }
 
-enum token scanner(void) {
-    enum estados estado = INICIAL;
+token scanner(void) {
+    estados estado = INICIAL;
     int caracter;
     int indice_lexema = 0;
-    enum token t = ERROR_GRAL;
+    token t = ERROR_GRAL;
 
     while(!debo_parar(estado)) {
         caracter =  getchar();
@@ -115,7 +117,9 @@ enum token scanner(void) {
         
         if(centinela(estado)) lexema[indice_lexema] = '\0';
         
-        else if(debo_agregar(estado)) {
+        // va a llenar el array lexema hasta el 200, despues va a seguir analizando, pero ya no va a guardar los caracteres.
+        // se podria modificar a un array mas grande o capaz ir variando su tamanio, pero el profe dijo que no importa de todos modos
+        else if(debo_agregar(estado) && indice_lexema <= 200) {
             lexema[indice_lexema] = caracter;
             indice_lexema++;
         }
@@ -126,24 +130,26 @@ enum token scanner(void) {
     switch (estado)
     {
         case ID_OK:
-            t= IDENTIFICADOR;
+            t = IDENTIFICADOR;
             break;
         case CONST_OK:
-            t= ENTERO;
+            t = ENTERO;
             break;
         case HEXA_OK:
-            t= HEXA;
+            t = HEXA;
             break;
         case FDT_OK:
-            t= FDT;
+            t = FDT;
             break;
         case ERR_CONST_MAL:
-            t= ERROR_ENTERO;
+            t = ERROR_ENTERO;
             break;
         case ERR_GRAL:
-            t= ERROR_GRAL;
+            t = ERROR_GRAL;
             break;  
         default:
+            fprintf(stderr, "ERROR: no existe el token");
+            exit(1);
             break;
     }
     
