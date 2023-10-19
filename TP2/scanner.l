@@ -18,7 +18,7 @@ otro [[:punct:]]{-}[()+\-/*^]
 %%
 salir                                                       return PALABRA_RESERVADA_SALIR;
 var                                                         return PALABRA_RESERVADA_VAR;
-{letra}({digito}|{letra})*                                   return IDENTIFICADOR;
+{letra}({digito}|{letra})*                                  return IDENTIFICADOR;
 {digito}+                                                   |
 {frac}{expo}?                                               |
 {digito}+{expo}                                             return NUMERO;                 
@@ -34,9 +34,9 @@ var                                                         return PALABRA_RESER
 "-"                                                         return '-';
 "/"                                                         return '/';
 "^"                                                         return '^'; 
-\n                                                          return NUEVA_LINEA;
 {otro}+                                                     printf("Error lexico: cadena desconocida: %s\n",yytext);
-{letra}({digito}|{letra})*{otro}+({digito}|{letra}|{otro})*  printf("Error lexico: identificador invalido: %s\n",yytext);
-{digito}+{letra}+({digito}|{letra})*                         printf("Error lexico: constante invalida: %s\n",yytext);
-{frac}{inval}+{expo}?                                       printf("Error lexico: REAL invalido: %s\n",yytext);
+{letra}({digito}|{letra})*{otro}+({digito}|{letra}|{otro})* printf("Error lexico: identificador invalido: %s\n",yytext);
+{digito}+{letra}+({digito}|{letra})*                        printf("Error lexico: constante invalida: %s\n",yytext);
+{frac}({inval}|{letra})+{expo}?({inval}|{letra})*                                   printf("Error lexico: REAL invalido: %s\n",yytext);
+\n                                                          return NUEVA_LINEA;
 %%
