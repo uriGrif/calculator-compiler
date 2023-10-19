@@ -25,7 +25,7 @@ Token: NUMERO		 valor: 3
 Token: 'NL'
 Token: IDENTIFICADOR		 valor: e
 Token: 'NL'
-Error lexico: identificador invalido: sin
+Token: IDENTIFICADOR		 valor: sin
 Token: '('
 Token: IDENTIFICADOR		 valor: pi
 Token: '/'
