@@ -1,2 +1,6 @@
 /.vscode
 *.exe
+
+/TP2/entrada.txt
+/TP2/scanner.c
+/TP2/scanner.h

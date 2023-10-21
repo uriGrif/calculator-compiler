@@ -35,8 +35,9 @@ var                                                         return PALABRA_RESER
 "^"                                                         return '^'; 
 {otro}+                                                     printf("Error lexico: cadena desconocida: %s\n",yytext);
 {letra}({digito}|{letra})*{otro}+({digito}|{letra}|{otro})* printf("Error lexico: identificador invalido: %s\n",yytext);
-{digito}+{letra}({digito}|{letra})*                        printf("Error lexico: constante invalida: %s\n",yytext);
-{digito}+{expo}{letra}({digito}|{letra})*                  |
+{digito}+{letra}({digito}|{letra})*                         printf("Error lexico: constante invalida: %s\n",yytext);
+{digito}+{expo}{letra}({digito}|{letra})*                   |
 {frac}({inval}|{letra})+{expo}?({inval}|{letra})*           printf("Error lexico: REAL invalido: %s\n",yytext);
 \n                                                          return NUEVA_LINEA;
+" "                                                         ;
 %%
