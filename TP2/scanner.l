@@ -33,7 +33,7 @@ var                                                         return PALABRA_RESER
 "-"                                                         return '-';
 "/"                                                         return '/';
 "^"                                                         return '^'; 
-{otro}+                                                     printf("Error lexico: cadena desconocida: %s\n",yytext);
+{otro}+                                                     printf("Error lexico: cadena desconocida: %s\n",yytext); //ACA DECIDIMOS QUE ESTE ERROR SOLO TOMA LOS CARACTERES DEL TIPO OTROS POR EJMPLO ##A reconce : ERROR ## y luego identificador a
 {letra}({digito}|{letra})*{otro}+({digito}|{letra}|{otro})* printf("Error lexico: identificador invalido: %s\n",yytext);
 {digito}+{letra}({digito}|{letra})*                         printf("Error lexico: constante invalida: %s\n",yytext);
 {digito}+{expo}{letra}({digito}|{letra})*                   |

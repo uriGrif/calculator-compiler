@@ -15,7 +15,7 @@ int main(void){
             printf("Token: '%c'\n",tok);
         }
     }
-    printf("Token: %s", token_names[0]);
+    printf("Token: %s", token_names[tok]);
     return 0;
 }
 
