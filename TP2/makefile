@@ -1,0 +1,1 @@
+cflags = -g -Wall -pedantic-errors -D_GNU_SOURCE -std=c2x
