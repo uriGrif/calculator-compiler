@@ -18,17 +18,29 @@ extern int yylexerrs;
 %output "parser.c"
 
 
-%token FDT IDENTIFICADOR NUMERO PALABRA_RESERVADA_SALIR PALABRA_RESERVADA_VAR MAS_IGUAL MENOS_IGUAL POR_IGUAL 
-%token DIVIDIDO_IGUAL NUEVA_LINEA
+%token FDT IDENTIFICADOR NUMERO PALABRA_RESERVADA_SALIR PALABRA_RESERVADA_VAR
+%token NUEVA_LINEA
+%token MAS_IGUAL "+=" 
+%token MENOS_IGUAL "-="
+%token DIVIDIDO_IGUAL "/="
+%token POR_IGUAL "*="
+%right '=' "+=" "-+" "*="
+%left '+' '-'
+%left '/' '*'
+%precedence NEG
+%right '^'
+%precedence '('  // ????????
+
 %define api.value.type {struct YYSTYPE}
+%define parse.error verbose
 
 //hay que hacerle el alias al VAR Y SALIR
 
 %%
 sesion: sesion linea | %empty;
-linea: expresion |
-       VAR IDENTIFICADOR |
-       VAR IDENTIFICADOR '=' expresion |
+linea: expresion '\n'|
+       VAR IDENTIFICADOR '\n'|
+       VAR IDENTIFICADOR '=' expresion '\n' |
        SALIR; 
 expresion: expresion '+' expresion |
            expresion '-' expresion |
