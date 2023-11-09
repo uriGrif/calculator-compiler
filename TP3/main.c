@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "parser.h"
 
-
-
 int yylexerrs = 0;
 int main(void){
 

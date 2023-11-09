@@ -12,8 +12,6 @@ void yyerror(const char *);
 extern int yylexerrs;
 }
 
-
-
 %defines "parser.h"
 %output "parser.c"
 
