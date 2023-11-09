@@ -18,8 +18,8 @@ extern int yylexerrs;
 %output "parser.c"
 
 
-%token FDT IDENTIFICADOR NUMERO PALABRA_RESERVADA_SALIR PALABRA_RESERVADA_VAR
-%token NUEVA_LINEA
+%token FDT IDENTIFICADOR NUMERO SALIR VAR
+%token NUEVA_LINEA '\n'
 %token MAS_IGUAL "+=" 
 %token MENOS_IGUAL "-="
 %token DIVIDIDO_IGUAL "/="
@@ -29,7 +29,6 @@ extern int yylexerrs;
 %left '/' '*'
 %precedence NEG
 %right '^'
-%precedence '('  // ????????
 
 %define api.value.type {struct YYSTYPE}
 %define parse.error verbose
@@ -39,22 +38,22 @@ extern int yylexerrs;
 %%
 sesion: sesion linea | %empty;
 linea: expresion '\n'|
-       VAR IDENTIFICADOR '\n'|
-       VAR IDENTIFICADOR '=' expresion '\n' |
-       SALIR; 
+       VAR IDENTIFICADOR linea_aux |
+       SALIR;
+linea_aux: '\n'| '=' expresion '\n';
 expresion: expresion '+' expresion |
            expresion '-' expresion |
            expresion '*' expresion |
            expresion '/' expresion |
            expresion '^' expresion |
            '-' expresion %prec NEG | 
-           IDENTIFICADOR '=' expresion |
-           IDENTIFICADOR "+=" expresion |
-           IDENTIFICADOR "-=" expresion |
-           IDENTIFICADOR  "*=" expresion |
-           IDENTIFICADOR "/=" expresion |
-           IDENTIFICADOR |
+           IDENTIFICADOR asignacion|
            NUMERO |
-           '(' expresion ')' |
-           funcion '(' expresion ')';
-funcion ???? 
+           '(' expresion ')';
+asignacion: '=' expresion |
+           "+=" expresion |
+           "-=" expresion |
+            "*=" expresion |
+           "/=" expresion |
+           '(' expresion ')' | // hacer semantica funcion
+           %empty;
