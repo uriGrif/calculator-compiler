@@ -24,7 +24,7 @@ extern int yylexerrs;
 %right '=' "+=" "-+" "*="
 %left '+' '-'
 %left '/' '*'
-%precedence NEG
+%left NEG
 %right '^'
 
 %define api.value.type {struct YYSTYPE}
@@ -32,10 +32,11 @@ extern int yylexerrs;
 
 
 %%
-sesion: sesion linea | %empty;
+sesion: sesion linea | %empty {if (yynerrs || yylexerrs) YYABORT;};
 linea: expresion '\n' {printf("Expresion\n");}|
        VAR IDENTIFICADOR linea_aux |
-       SALIR;
+       SALIR |
+       error '\n';
 linea_aux: '\n' {printf("Define ID como variable\n");} |  
             '=' expresion '\n' {printf("Define ID como variable con valor inicial\n");} ;
 expresion: expresion '+' expresion {printf("Suma\n");}|
@@ -54,3 +55,9 @@ asignacion: '=' expresion {printf("asignacion\n");} |
            "/=" expresion {printf("asignacion con division\n");} |
            '(' expresion ')' {printf("funcion\n");} |
            %empty {printf("ID\n");};
+%%
+
+void yyerror(const char *s){
+	puts(s);
+	return;
+}
