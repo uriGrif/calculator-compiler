@@ -17,7 +17,6 @@ extern int yylexerrs;
 
 
 %token FDT IDENTIFICADOR NUMERO SALIR VAR
-%token NUEVA_LINEA '\n'
 %token MAS_IGUAL "+=" 
 %token MENOS_IGUAL "-="
 %token DIVIDIDO_IGUAL "/="
@@ -31,27 +30,27 @@ extern int yylexerrs;
 %define api.value.type {struct YYSTYPE}
 %define parse.error verbose
 
-//hay que hacerle el alias al VAR Y SALIR
 
 %%
 sesion: sesion linea | %empty;
-linea: expresion '\n'|
+linea: expresion '\n' {printf("Expresion\n");}|
        VAR IDENTIFICADOR linea_aux |
        SALIR;
-linea_aux: '\n'| '=' expresion '\n';
-expresion: expresion '+' expresion |
-           expresion '-' expresion |
-           expresion '*' expresion |
-           expresion '/' expresion |
-           expresion '^' expresion |
-           '-' expresion %prec NEG | 
+linea_aux: '\n' {printf("Define ID como variable\n");} |  
+            '=' expresion '\n' {printf("Define ID como variable con valor inicial\n");} ;
+expresion: expresion '+' expresion {printf("Suma\n");}|
+           expresion '-' expresion {printf("Resta\n");} |
+           expresion '*' expresion {printf("Multiplicacion\n");}|
+           expresion '/' expresion {printf("Division\n");}|
+           expresion '^' expresion {printf("Potenciacion\n");}|
+           '-' expresion %prec NEG {printf("Cambio signo\n");}| 
            IDENTIFICADOR asignacion|
-           NUMERO |
-           '(' expresion ')';
-asignacion: '=' expresion |
-           "+=" expresion |
-           "-=" expresion |
-            "*=" expresion |
-           "/=" expresion |
-           '(' expresion ')' | // hacer semantica funcion
-           %empty;
+           NUMERO {printf("Numero\n");} |
+           '(' expresion ')' {printf("cierra parentesis\n");};
+asignacion: '=' expresion {printf("asignacion\n");} |
+           "+=" expresion {printf("asignacion con suma\n");} |
+           "-=" expresion {printf("asignacion con resta\n");} |
+           "*=" expresion {printf("asignacion con multiplicacion\n");} |
+           "/=" expresion {printf("asignacion con division\n");} |
+           '(' expresion ')' {printf("funcion\n");} |
+           %empty {printf("ID\n");};

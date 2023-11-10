@@ -38,6 +38,6 @@ var                                                         return VAR;
 {frac}({inval}|{letra}|{otro})+{expo}?({inval}|{letra}|{otro})*  printf("Error lexico: REAL invalido: %s\n",yytext);
 {digito}+({letra}|{otro})({digito}|{letra}|{otro})*         printf("Error lexico: constante invalida: %s\n",yytext);
 {otro}+                                                     printf("Error lexico: cadena desconocida: %s\n",yytext);
-\n                                                          return NUEVA_LINEA;
+\n                                                          return '\n';
 " "                                                         ;
 %%
