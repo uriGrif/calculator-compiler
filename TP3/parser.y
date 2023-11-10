@@ -1,7 +1,7 @@
 %code top{
 #include <stdio.h>
 #include "scanner.h"
-%}
+}
 
 %code provides{
 struct YYSTYPE{
@@ -32,13 +32,15 @@ extern int yylexerrs;
 
 
 %%
-sesion: sesion linea | %empty {if (yynerrs || yylexerrs) YYABORT;};
-linea: expresion '\n' {printf("Expresion\n");}|
+todo	: sesion { if (yynerrs || yylexerrs) YYABORT;}
+sesion: sesion linea | %empty;
+linea: expresion '\n' {printf("Expresion\n\n");}|
        VAR IDENTIFICADOR linea_aux |
        SALIR |
+       '\n' |
        error '\n';
-linea_aux: '\n' {printf("Define ID como variable\n");} |  
-            '=' expresion '\n' {printf("Define ID como variable con valor inicial\n");} ;
+linea_aux: '\n' {printf("Define ID como variable\n\n");} |  
+            '=' expresion '\n' {printf("Define ID como variable con valor inicial\n\n");} ;
 expresion: expresion '+' expresion {printf("Suma\n");}|
            expresion '-' expresion {printf("Resta\n");} |
            expresion '*' expresion {printf("Multiplicacion\n");}|
