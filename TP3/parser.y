@@ -32,7 +32,7 @@ extern int yylexerrs;
 
 
 %%
-todo	: sesion { if (yynerrs || yylexerrs) YYABORT;}
+todo	: sesion { if (yynerrs || yylexerrs) YYABORT;};
 sesion: sesion linea | %empty;
 linea: expresion '\n' {printf("Expresion\n\n");}|
        VAR IDENTIFICADOR linea_aux |

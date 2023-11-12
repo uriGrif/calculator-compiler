@@ -1,0 +1,94 @@
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: var
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: var
+Token: IDENTIFICADOR		 valor: b
+Token: '='
+Token: NUMERO		 valor: 2.3
+Token: 'NL'
+Token: var
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: '='
+Token: NUMERO		 valor: 3
+Token: '+'
+Token: IDENTIFICADOR		 valor: b
+Token: '*'
+Token: NUMERO		 valor: 2
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: b
+Token: '^'
+Token: NUMERO		 valor: 3
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: e
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: sin
+Token: '('
+Token: IDENTIFICADOR		 valor: pi
+Token: '/'
+Token: NUMERO		 valor: 2
+Token: ')'
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: '='
+Token: IDENTIFICADOR		 valor: b
+Token: +=
+Token: NUMERO		 valor: 1
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: b
+Token: 'NL'
+Token: '('
+Token: NUMERO		 valor: 2
+Token: '+'
+Token: NUMERO		 valor: 3
+Token: ')'
+Token: '*'
+Token: '-'
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: NUMERO		 valor: 13.25
+Token: 'NL'
+Error lexico: constante invalida: 12a3
+Token: 'NL'
+Error lexico: identificador invalido: a#2.4
+Token: 'NL'
+Error lexico: constante invalida: 12@@
+Token: 'NL'
+Error lexico: REAL invalido: 2.3.4a2.3
+Token: 'NL'
+Error lexico: cadena desconocida: @@#;@
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: '+'
+Token: NUMERO		 valor: 2
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: '='
+Token: IDENTIFICADOR		 valor: z
+Token: '+'
+Token: NUMERO		 valor: 2
+Token: 'NL'
+Token: IDENTIFICADOR		 valor: a
+Token: 'NL'
+Token: NUMERO		 valor: 2
+Token: '*'
+Token: '*'
+Token: NUMERO		 valor: 3
+Token: 'NL'
+Error lexico: cadena desconocida: @@@
+Token: IDENTIFICADOR		 valor: jorgito
+Token: 'NL'
+Error lexico: REAL invalido: 12e-5####..
+Token: 'NL'
+Error lexico: REAL invalido: 12.@@@.5.23
+Token: 'NL'
+Error lexico: REAL invalido: .23#5
+Token: 'NL'
+Token: salir
+Token: 'NL'
+Token: Fin de Archivo
