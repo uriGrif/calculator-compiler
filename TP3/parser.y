@@ -60,6 +60,6 @@ asignacion: '=' expresion {printf("asignacion\n");} |
 %%
 
 void yyerror(const char *s){
-	puts(s);
+	printf("%s\n\n",s);
 	return;
 }
