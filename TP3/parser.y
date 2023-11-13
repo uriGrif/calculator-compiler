@@ -16,7 +16,7 @@ extern int yylexerrs;
 %output "parser.c"
 
 
-%token FDT IDENTIFICADOR NUMERO SALIR VAR
+%token IDENTIFICADOR NUMERO SALIR VAR
 %token MAS_IGUAL "+=" 
 %token MENOS_IGUAL "-="
 %token DIVIDIDO_IGUAL "/="
