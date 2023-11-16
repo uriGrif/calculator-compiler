@@ -44,7 +44,7 @@ expresion: expresion '+' expresion {printf("Suma\n");}|
            IDENTIFICADOR {printf("ID\n");}|
            IDENTIFICADOR '=' expresion {printf("asignacion\n");} | 
            NUMERO {printf("Numero\n");} |
-           '(' expresion ')' {printf("cierra parentesis\n");}; | 
+           '(' expresion ')' {printf("cierra parentesis\n");} | 
            IDENTIFICADOR "+=" expresion {printf("asignacion con suma\n");} |
            IDENTIFICADOR "-=" expresion {printf("asignacion con resta\n");} |
            IDENTIFICADOR "*=" expresion {printf("asignacion con multiplicacion\n");} |
