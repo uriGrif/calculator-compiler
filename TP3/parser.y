@@ -49,7 +49,7 @@ expresion: expresion '+' expresion {printf("Suma\n");}|
            IDENTIFICADOR "-=" expresion {printf("asignacion con resta\n");} |
            IDENTIFICADOR "*=" expresion {printf("asignacion con multiplicacion\n");} |
            IDENTIFICADOR "/=" expresion {printf("asignacion con division\n");} |
-           IDENTIFICADOR '(' expresion ')' {printf("funcion\n");}
+           IDENTIFICADOR '(' expresion ')' {printf("funcion\n");} ;
 %%
 
 void yyerror(const char *s){
