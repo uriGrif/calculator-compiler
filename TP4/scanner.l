@@ -1,7 +1,9 @@
 %{
 #include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include "parser.h"
-
+#include "calculadora.h"
 char msg[120]; //para poder armar mensajes a enviar a yyerror
 %}
 
@@ -20,9 +22,9 @@ otro [[:punct:]]{-}[()+\-/*^]
 %%
 salir                                                       return SALIR;
 var                                                         return VAR;
-{letra}({digito}|{letra})*                                  return IDENTIFICADOR;
+{letra}({digito}|{letra})*                                  {struct simbolo_tabla * aux; if(!(aux = obtener_simbolo(yytext))) aux = agregar_simbolo(yytext,VARIABLE); yylval.reg = aux; if(aux->tipo == VARIABLE)  return IDENTIFICADOR; else return FUN;}
 {digito}+{expo}?                                            |
-{frac}{expo}?                                               return NUMERO;             
+{frac}{expo}?                                               {sscanf(yytext,"%lf",&yylval.val);return NUMERO;}             
 "+="                                                        return MAS_IGUAL;
 "-="                                                        return MENOS_IGUAL;
 "*="                                                        return POR_IGUAL;

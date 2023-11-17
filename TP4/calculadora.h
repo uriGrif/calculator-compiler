@@ -1,7 +1,7 @@
 #ifndef CALCULADORA_H_INCLUDED
 #define CALCULADORA_H_INCLUDED
 
-enum tipo {NUM, VAR, FUNC};
+enum tipo {NUM, VARIABLE, FUNC};
 
 struct simbolo_tabla{
     char * lexema;
@@ -17,8 +17,14 @@ struct simbolo_tabla{
 
 extern struct simbolo_tabla* tabla_de_simbolos;
 
+extern int nsemnterrs;
+
 
 struct simbolo_tabla* agregar_simbolo(char* nombre, enum tipo tipo);
 struct simbolo_tabla* obtener_simbolo(char * nombre);
+
+void inicializar_tabla(void);
+
+int declarar(char *nombre);
 
 #endif

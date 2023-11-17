@@ -11,7 +11,7 @@
 struct simbolo_tabla* obtener_simbolo(char * nombre){
     struct simbolo_tabla* aux = tabla_de_simbolos;
     while (aux != 0){
-        if(! strcmp(nombre, aux->lexema)) return aux;  
+        if(!strcmp(nombre, aux->lexema)) return aux;  
         aux = aux->sig;
     }
     return 0;
@@ -21,14 +21,16 @@ struct simbolo_tabla* obtener_simbolo(char * nombre){
 //ESTE EJEMPLO AGREGA AL PRINCIPIO DE LA LISTA, SE PODRIA HACER AGREGANDO AL FINAL Y TE DEVUELVE EL PUNTERO AL OBJETO AGREGADO
 struct simbolo_tabla* agregar_simbolo(char* nombre, enum tipo tipo){
     struct simbolo_tabla* aux = malloc(sizeof(struct simbolo_tabla));
-    aux->lexema = malloc(strlen(nombre) + 1);
-    strcpy(aux->lexema,nombre);
+    // aux->lexema = malloc(strlen(nombre) + 1);
+    // strcpy(aux->lexema,nombre);
+    aux->lexema = strdup(nombre);
     aux->tipo = tipo;
     aux->valor.nro = 0; // ???/
     aux->sig = tabla_de_simbolos;
     tabla_de_simbolos = aux;
     return aux;
 
+// TODO YA ESTA DECLARADO
 }
 
 struct reg_funcion
@@ -58,25 +60,29 @@ struct reg_constante{
 struct reg_constante constantes[]= {{"e",M_E},{"pi",M_PI},{0,0}};
 
 
-void incializar_tabla(){
-    int i =0;
+// me devuelve si un ID ya fue declarado
+int fue_declarado(char * nombre){
+    return obtener_simbolo(nombre) != 0;
+}
+
+int declarar(char * nombre){
+    if(fue_declarado(nombre)) {
+        yyerror("Error, identificador ya declarado como variable");
+        nsemnterrs++;
+        return 1;
+    }
+    agregar_simbolo(nombre,VARIABLE);
+    return 0;
+}
+
+void inicializar_tabla(void){
     struct simbolo_tabla * aux;
-    for(i;funciones_aritmeticas[i].nombre != 0; i++){
+    for(int i=0;funciones_aritmeticas[i].nombre != 0; i++){
         aux = agregar_simbolo(funciones_aritmeticas[i].nombre,FUNC);
         aux->valor.func = funciones_aritmeticas[i].func;
     }
-    i=0;
-    for(i;constantes[i].nombre !=0 ; i++){
-        aux = agregar_simbolo(constantes[i].nombre,VAR);
+    for(int i=0;constantes[i].nombre !=0 ; i++){
+        aux = agregar_simbolo(constantes[i].nombre,VARIABLE);
         aux->valor.nro = constantes[i].valor;
     }
-}
-
-
-int yylexerrs = 0;
-int main(void){
-    inicializar_tabla();
-    yyparse();
-
-    return 0;
 }
