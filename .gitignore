@@ -11,3 +11,13 @@
 /TP3/scanner.h
 /TP3/parser.c
 /TP3/parser.h
+/TP3/*.o
+
+/TP4/entrada.txt
+/TP4/entrada2.txt
+/TP4/scanner.c
+/TP4/scanner.h
+/TP4/parser.c
+/TP4/parser.h
+/TP4/calculadora.o
+/TP4/*.o

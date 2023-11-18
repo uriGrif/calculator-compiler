@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include<string.h>
-#include<stdlib.h>
-#include<math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
 #include "parser.h"
 #include "calculadora.h"
 
@@ -27,12 +27,10 @@ struct simbolo_tabla* agregar_simbolo(char* nombre, int tipo){
     // strcpy(aux->lexema,nombre);
     aux->lexema = strdup(nombre);
     aux->tipo = tipo;
-    aux->valor.nro = 0; // ???/
+    aux->valor.nro = 0;
     aux->sig = tabla_de_simbolos;
     tabla_de_simbolos = aux;
     return aux;
-
-// TODO YA ESTA DECLARADO
 }
 
 struct reg_funcion
