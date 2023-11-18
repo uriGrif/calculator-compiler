@@ -13,7 +13,7 @@ letra [a-zA-Z]
 expo [eE][+-]?{digito}+
 frac {digito}*\.{digito}+|{digito}+\.{digito}*
 inval [0-9.]
-otro [[:punct:]]{-}[()+\-/*^]
+otro [[:punct:]]{-}[()+\-/*^=]
 
 %%
 salir                                                       return PALABRA_RESERVADA_SALIR;
