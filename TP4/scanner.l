@@ -17,12 +17,12 @@ letra [a-zA-Z]
 expo [eE][+-]?{digito}+
 frac {digito}*\.{digito}+|{digito}+\.{digito}*
 inval [0-9.]
-otro [[:punct:]]{-}[()+\-/*^]
+otro [[:punct:]]{-}[()+\-/*^=]
 
 %%
 salir                                                       return SALIR;
 var                                                         return VAR;
-{letra}({digito}|{letra})*                                  {struct simbolo_tabla * aux; if(!(aux = obtener_simbolo(yytext))) aux = agregar_simbolo(yytext,VARIABLE); yylval.reg = aux; if(aux->tipo == VARIABLE)  return IDENTIFICADOR; else return FUN;}
+{letra}({digito}|{letra})*                                  {if(!(yylval.reg = obtener_simbolo(yytext))) llenar_registro(&yylval.reg,yytext); return yylval.reg->tipo==VAR? IDENTIFICADOR: FUNC;}
 {digito}+{expo}?                                            |
 {frac}{expo}?                                               {sscanf(yytext,"%lf",&yylval.val);return NUMERO;}             
 "+="                                                        return MAS_IGUAL;

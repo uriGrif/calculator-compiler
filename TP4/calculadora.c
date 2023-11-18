@@ -6,6 +6,8 @@
 #include "calculadora.h"
 
 
+char buffer [120]; //para poder armar mensajes a enviar a yyerror
+
 
 //BUSCA EN LA LISTA UN REGISTRO CON ESE LEXEMA DE NOMBRE SI LO ENCUENTRA LO DEVUELVE, SI NO DEVUELVE 0
 struct simbolo_tabla* obtener_simbolo(char * nombre){
@@ -19,7 +21,7 @@ struct simbolo_tabla* obtener_simbolo(char * nombre){
 
 
 //ESTE EJEMPLO AGREGA AL PRINCIPIO DE LA LISTA, SE PODRIA HACER AGREGANDO AL FINAL Y TE DEVUELVE EL PUNTERO AL OBJETO AGREGADO
-struct simbolo_tabla* agregar_simbolo(char* nombre, enum tipo tipo){
+struct simbolo_tabla* agregar_simbolo(char* nombre, int tipo){
     struct simbolo_tabla* aux = malloc(sizeof(struct simbolo_tabla));
     // aux->lexema = malloc(strlen(nombre) + 1);
     // strcpy(aux->lexema,nombre);
@@ -65,14 +67,33 @@ int fue_declarado(char * nombre){
     return obtener_simbolo(nombre) != 0;
 }
 
-int declarar(char * nombre){
-    if(fue_declarado(nombre)) {
-        yyerror("Error, identificador ya declarado como variable");
+int declarar(struct simbolo_tabla ** sem_reg){
+    struct simbolo_tabla * aux = *sem_reg;
+    if(fue_declarado(aux->lexema)) {
         nsemnterrs++;
+        yyerror("Error, identificador ya declarado como variable");
         return 1;
     }
-    agregar_simbolo(nombre,VARIABLE);
+    *sem_reg = agregar_simbolo(aux->lexema,VAR);
     return 0;
+}
+
+int verificar_id(char *nombre){
+    if(!fue_declarado(nombre)){
+        sprintf(buffer,"Error: ID %s no declarado",nombre);
+        nsemnterrs++;
+        yyerror(buffer);
+        return 1;
+    }
+    return 0;
+}
+
+void llenar_registro(struct simbolo_tabla ** sem_reg,char* nombre){
+    struct simbolo_tabla * aux;
+    *sem_reg = malloc(sizeof(sem_reg));
+    aux = *sem_reg;
+    aux->lexema = strdup(nombre);
+    aux->tipo = VAR;
 }
 
 void inicializar_tabla(void){
@@ -82,7 +103,7 @@ void inicializar_tabla(void){
         aux->valor.func = funciones_aritmeticas[i].func;
     }
     for(int i=0;constantes[i].nombre !=0 ; i++){
-        aux = agregar_simbolo(constantes[i].nombre,VARIABLE);
+        aux = agregar_simbolo(constantes[i].nombre,VAR);
         aux->valor.nro = constantes[i].valor;
     }
 }
