@@ -1,3 +1,3 @@
 # TP 2 FLEX
 
-Analizador lexico para una calculadora
+Analizador léxico para una calculadora
