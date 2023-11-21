@@ -1,7 +1,7 @@
 cflags = -g -Wall -pedantic-errors -D_GNU_SOURCE -std=c2x
 
 calculadora : scanner.o parser.o main.o calculadora.o
-	gcc scanner.o parser.o main.o calculadora.o -o calculadora -L/usr/lib/ -lfl
+	gcc scanner.o parser.o main.o calculadora.o -o calculadora -L/usr/lib/ -lfl -lm
 
 parser.c parser.h : parser.y
 	bison parser.y
