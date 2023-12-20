@@ -105,3 +105,18 @@ void inicializar_tabla(void){
         aux->valor.nro = constantes[i].valor;
     }
 }
+
+void liberarMemoriaTabla(void){
+    struct simbolo_tabla * aux;
+    while(tabla_de_simbolos){
+        aux = tabla_de_simbolos;
+        tabla_de_simbolos = tabla_de_simbolos->sig;
+        free(aux);
+    }
+    tabla_de_simbolos = 0;
+}
+
+void salir(void){
+    liberarMemoriaTabla();
+    exit(0);
+}

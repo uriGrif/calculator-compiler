@@ -9,5 +9,6 @@ struct simbolo_tabla * tabla_de_simbolos = 0;
 int main(void){
     inicializar_tabla();
     yyparse();
+    liberarMemoriaTabla();
     return 0;
 }

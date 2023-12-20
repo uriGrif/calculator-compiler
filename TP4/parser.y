@@ -48,8 +48,8 @@ sesion:     sesion linea | %empty;
 linea:      expresion '\n'                          {printf ("%f\n", $1); }|
             VAR IDENTIFICADOR '\n'                  {if(!declarar(&$2)) printf("%s: %f\n",$2->lexema,$2->valor.nro);} |
             VAR IDENTIFICADOR  '=' expresion '\n'   {if(!declarar(&$2)) {$2->valor.nro = $4; printf("%s: %f\n",$2->lexema,$2->valor.nro);}} |
-            SALIR |                                 { exit(0); }
-            '\n' |
+            SALIR {salir();}|                                 
+            '\n' |                                  
             error '\n' ;
 expresion:  expresion '+' expresion                 {$$ = $1 + $3;}|
             expresion '-' expresion                 {$$ = $1 - $3;} |
