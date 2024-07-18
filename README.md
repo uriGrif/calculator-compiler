@@ -1,23 +1,45 @@
-# SSL TPs Grupales
+# TP: FLEX Y BISON
 
-## Comision K2002 - Martes Mañana - Grupo 1
+## Analizador semántico para una calculadora utilizando las herramientas Flex y Bison.
 
-## Integrantes:
+Recomendable correr con entorno de linux
+La calculadora te permite declarar y asignar variables, usar funciones logaritmo y trigonometricas y viene con mecanismo de deteccion de errores
 
-Uriel Grifman
+# Como correr
 
-Gonzalo Ivo Turri
+```shell
+    make && ./calculadora < archivo_de_entrada_opcional
+```
 
-Valentina Valmadre Amoia
+# Ejemplo entrada con salida
 
-Gerónimo Bosco
+Entrada:
 
-Facundo Slaibe
+```
+var a = 1
+var b = 2
+var c = 3
+var z = (a += (b *= c)) / 2
+a
+b
+c
+log(10)
+cos(pi)
+sin(pi)
+salir
+```
 
-Gianfranco Lema De Filippo
+Salida:
 
-María Sofía Rabey Fischer
-
-Juan Ignacio del Puerto
-
-Santiago Ale Marino
+```
+a: 1.000000
+b: 2.000000
+c: 3.000000
+z: 3.500000
+7.000000
+6.000000
+3.000000
+2.302585
+-1.000000
+0.000000
+```
